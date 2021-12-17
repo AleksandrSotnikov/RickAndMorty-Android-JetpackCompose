@@ -36,8 +36,11 @@ dependencies {
     implementation(Dependency.Orbit.viewModel)
     implementation(Dependency.AndroidX.paging)
     implementation(Dependency.Koin.android)
+    implementation(Dependency.Accompanist.flowlayout)
     implementation(Dependency.Koin.compose)
     implementation(Dependency.Other.toolbar)
     implementation(Dependency.Loggers.prettyLogger)
     implementation(Dependency.Accompanist.insets)
+    implementation(project(ModuleDependency.navigation))
+    implementation(Dependency.Navigation.compose)
 }

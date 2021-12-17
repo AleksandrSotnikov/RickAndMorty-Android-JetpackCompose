@@ -2,6 +2,7 @@ package com.ronasit.character.list.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
@@ -18,18 +19,19 @@ import com.ronasit.character.list.R
 import com.ronasit.core.ui.theme.RickAndMortyTheme
 
 @Composable
-internal fun FilterButton() {
+internal fun FilterButton(status: String, species: String, type: String, gender: String, function: () -> Unit) {
     Box(modifier = Modifier.fillMaxWidth()) {
         Image(
             painterResource(id = R.drawable.ic_sliders_24),
             contentDescription = null,
             contentScale = ContentScale.None,
-            colorFilter = ColorFilter.tint(color = RickAndMortyTheme.colors.grayDark),
+            colorFilter = ColorFilter.tint(color = if (status.isNotEmpty() || species.isNotEmpty() || type.isNotEmpty() || gender.isNotEmpty()) RickAndMortyTheme.colors.white else RickAndMortyTheme.colors.grayDark),
             modifier = Modifier
                 .align(Alignment.CenterEnd)
                 .clip(RoundedCornerShape(16.dp))
                 .size(56.dp)
-                .background(RickAndMortyTheme.colors.blackCard)
+                .background(if (status.isNotEmpty() || species.isNotEmpty() || type.isNotEmpty() || gender.isNotEmpty()) RickAndMortyTheme.colors.primary else RickAndMortyTheme.colors.blackCard)
+                .clickable(onClick = function)
         )
     }
 }

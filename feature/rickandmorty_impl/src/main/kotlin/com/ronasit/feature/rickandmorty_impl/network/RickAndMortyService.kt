@@ -9,33 +9,54 @@ interface RickAndMortyService {
     @GET("character")
     suspend fun getAllCharacters(
         @Query("page") pageNumber: Int,
-        @Query("name") nameCharacter: String
-    ): CharacterResponse
+        @Query("name") nameCharacter: String,
+        @Query("status") status: String,
+        @Query("species") species: String,
+        @Query("type") type: String,
+        @Query("gender") gender: String,
+
+        ): CharacterResponse
 
     @GET("location")
     suspend fun getAllLocations(
         @Query("page") pageNumber: Int,
-        @Query("name") nameLocation: String
+        @Query("name") nameLocation: String,
+        @Query("type") type: String,
+        @Query("dimension") dimension: String
     ): LocationResponse
 
     @GET("episode")
     suspend fun getAllEpisodes(
         @Query("page") pageNumber: Int,
-        @Query("name") nameLocation: String
+        @Query("name") nameLocation: String,
+        @Query("episode") episode: String
     ): EpisodeResponse
 
+
     @GET("location/{id}")
-    suspend fun getLocationById(
-        @Path("id") id: Int?
-    ): LocationDetailResponse
+    suspend fun getLocation(
+        @Path("id") id: String?
+    ): LocationResult
 
     @GET("episode/{id}")
-    suspend fun getEpisodeById(
-        @Path("id") id: Int?
-    ): EpisodeDetailResponse
+    suspend fun getEpisode(
+        @Path("id") id: String?
+    ): EpisodeResult
 
     @GET("character/{id}")
-    suspend fun getCharacterById(
+    suspend fun getCharacter(
         @Path("id") id: String
-    ): List<LocationDetailResidentResponseItem>
+    ): CharacterResult
+
+
+    @GET("character/{id}")
+    suspend fun getCharacterList(
+        @Path("id") id: String
+    ): List<CharacterResult>
+
+    @GET("episode/{id}")
+    suspend fun getEpisodeList(
+        @Path("id") id: String?
+    ): List<EpisodeResult>
+
 }

@@ -42,4 +42,6 @@ dependencies {
     implementation(Dependency.Other.coil)
     implementation(Dependency.Loggers.prettyLogger)
     implementation(Dependency.Accompanist.insets)
+    implementation(project(ModuleDependency.navigation))
+    implementation(Dependency.Accompanist.navigationAnimation)
 }

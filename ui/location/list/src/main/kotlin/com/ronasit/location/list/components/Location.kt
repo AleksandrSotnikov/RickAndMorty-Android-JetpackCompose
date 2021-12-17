@@ -13,13 +13,13 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.ronasit.core.ui.theme.RickAndMortyTheme
+import com.ronasit.core.ui.utils.shortenIf
 import com.ronasit.feature.rickandmorty_api.model.Location
 import com.ronasit.location.list.R
 
 @Composable
-internal fun Location(location: Location, navController: NavController) {
+internal fun Location(location: Location, onLocationClick: (id: String) -> Unit) {
     val iconMap = mapOf(
         "Planet" to R.drawable.ic_planet_24,
         "Cluster" to R.drawable.ic_cluster_24,
@@ -37,7 +37,7 @@ internal fun Location(location: Location, navController: NavController) {
             .height(80.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(color = RickAndMortyTheme.colors.blackCard, shape = RoundedCornerShape(16.dp))
-            .clickable { navController.navigate("locationDetail/${location.id}") }
+            .clickable { onLocationClick(location.id.toString()) }
     ) {
         Row(
             Modifier
@@ -61,7 +61,7 @@ internal fun Location(location: Location, navController: NavController) {
             )
             Column(Modifier.padding(start = 16.dp)) {
                 Text(
-                    location.name,
+                    location.name.shortenIf(27),
                     style = RickAndMortyTheme.typography.title5,
                     color = RickAndMortyTheme.colors.white,
                     modifier = Modifier.padding(top = 8.dp)

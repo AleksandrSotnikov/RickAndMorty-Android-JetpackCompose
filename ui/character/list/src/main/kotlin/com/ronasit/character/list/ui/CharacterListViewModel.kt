@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.ronasit.character.list.CharacterFilters
 import com.ronasit.character.list.Constants
 import com.ronasit.character.list.datasource.CharacterSource
 import com.ronasit.feature.rickandmorty_api.model.Character
@@ -26,7 +27,14 @@ internal class CharacterListViewModel(
         val debounce = 400L
 
         return Pager(PagingConfig(pageSize = Constants.pageSize)) {
-            CharacterSource(getCharactersUseCase, container.stateFlow.value.searchText)
+            CharacterSource(
+                getCharactersUseCase,
+                container.stateFlow.value.searchText,
+                container.stateFlow.value.status,
+                container.stateFlow.value.species,
+                container.stateFlow.value.type,
+                container.stateFlow.value.gender
+            )
         }.flow.debounce(debounce)
     }
 
@@ -35,4 +43,11 @@ internal class CharacterListViewModel(
             state.copy(searchText = searchText)
         }
     }
+
+    fun onFilterChanged(filter: CharacterFilters) = intent {
+        reduce {
+            state.copy(status = filter.status, species = filter.species, type = filter.type, gender = filter.gender)
+        }
+    }
+
 }
